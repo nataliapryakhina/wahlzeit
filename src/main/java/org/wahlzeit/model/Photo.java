@@ -68,7 +68,11 @@ public class Photo extends DataObject {
 	public static final int MAX_THUMB_PHOTO_HEIGHT = 150;
 
 	protected PhotoId id = null;
-	
+
+	/**
+	 cw-3
+	 */
+	public Location location;  
 	/**
 	 *
 	 */
@@ -417,5 +421,12 @@ public class Photo extends DataObject {
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
+	}
+	
+	public void setLocation(Location l) {
+		this.location=l;
+	}
+	public Location getLocation() {
+		return this.location;
 	}
 }
