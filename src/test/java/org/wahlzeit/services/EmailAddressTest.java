@@ -20,6 +20,8 @@
 
 package org.wahlzeit.services;
 
+import org.wahlzeit.services.EmailAddress;
+
 import junit.framework.TestCase;
 
 /**
