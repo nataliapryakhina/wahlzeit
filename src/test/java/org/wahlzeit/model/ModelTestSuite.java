@@ -2,10 +2,12 @@ package org.wahlzeit.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
+	ModelPersistenceTestSuite.class,
 	AccessRightsTest.class,
 	CoordinateTest.class,
 	FlagReasonTest.class, 
@@ -16,7 +18,7 @@ import org.junit.runners.Suite;
 	TagsTest.class,
 	UserStatusTest.class,
 	ValueTest.class
-	   
+	  
 })
 
 public class ModelTestSuite {
