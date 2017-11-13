@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.wahlzeit.model.owl.OwlModelTestSuite;
 import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 
 @RunWith(Suite.class)
@@ -17,7 +18,8 @@ import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 	PhotoFilterTest.class, 
 	TagsTest.class,
 	UserStatusTest.class,
-	ValueTest.class
+	ValueTest.class,
+	OwlModelTestSuite.class
 	  
 })
 

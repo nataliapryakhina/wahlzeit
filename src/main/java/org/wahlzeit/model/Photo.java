@@ -126,6 +126,7 @@ public class Photo extends DataObject {
 	 */
 	protected String ending = "jpg";
 	
+	public PhotoManager manager;
 	/**
 	 *
 	 */
@@ -141,6 +142,7 @@ public class Photo extends DataObject {
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
+		manager = new PhotoManager();
 	}
 
 	/**

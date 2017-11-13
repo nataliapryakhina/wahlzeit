@@ -7,7 +7,6 @@ import org.wahlzeit.model.ModelTestSuite;
 
 import org.wahlzeit.services.ServicesTestSuite;
 
-import org.wahlzeit.testEnvironmentProvider.TestEnvironmentProviderTestSuite;
 import org.wahlzeit.utils.UtilsTestSuite;
 
 
@@ -16,10 +15,7 @@ import org.wahlzeit.utils.UtilsTestSuite;
 @Suite.SuiteClasses({
 	HandlersTestSuite.class,
 	ModelTestSuite.class,
-	//ModelPersistenceTestSuite.class,
-	ServicesTestSuite.class,
-	//EmailServiceTestSuite.class,
-	TestEnvironmentProviderTestSuite.class,
+	ServicesTestSuite.class,	
 	UtilsTestSuite.class
 })
 public class WahlzeitTestSuite {
