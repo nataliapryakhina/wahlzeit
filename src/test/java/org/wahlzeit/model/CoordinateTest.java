@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 import org.junit.*;
 import org.junit.Assert;
+import org.wahlzeit.model.coordinate.impl.Coordinate;
 
 public class CoordinateTest {
 	private Coordinate c;

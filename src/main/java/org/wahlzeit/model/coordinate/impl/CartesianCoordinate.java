@@ -1,16 +1,17 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinate.impl;
 
+import org.wahlzeit.model.coordinate.Coordinate;
 
-public class Coordinate {
+public class CartesianCoordinate implements Coordinate{
 	private double x;
 	private double y;
 	private double z;
 	
-	public Coordinate() {
+	public CartesianCoordinate() {
 		
 	}
 	
-	public Coordinate(double x, double y, double z){
+	public CartesianCoordinate(double x, double y, double z){
 		this.x=x;
 		this.y=y;
 		this.z=z;
@@ -39,7 +40,7 @@ public class Coordinate {
 		return this.z;
 	}
 	//direct Distance
-	public double getDistance(Coordinate target) {
+	public double getDistance(CartesianCoordinate target) {
 		
 		double limit = Math.sqrt(Double.MAX_VALUE);
 		double x_diff = Math.abs(this.x-target.x); 
@@ -53,7 +54,7 @@ public class Coordinate {
 		return distance;
 	}
 	
-	public boolean isEqual(Coordinate target) {
+	public boolean isEqual(CartesianCoordinate target) {
 		if(target==null) {
 			return false;
 		}
@@ -68,13 +69,37 @@ public class Coordinate {
 		if (o == null) {
 			return false;
 		}
-		if(o instanceof Coordinate) {
-			Coordinate target =(Coordinate) o;
+		if(o instanceof CartesianCoordinate) {
+			CartesianCoordinate target =(CartesianCoordinate) o;
 			return isEqual(target);
 		}else {
 			return false;
 		}
 		 
+	}
+
+	@Override
+	public CartesianCoordinate asCartesianCoordinate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SphericCoordinate asSphericCoordinate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public double getDistance(Coordinate otherCoord) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isEqual(Coordinate c) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

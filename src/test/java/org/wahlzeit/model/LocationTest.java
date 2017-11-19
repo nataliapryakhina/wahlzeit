@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 import org.junit.*;
+import org.wahlzeit.model.coordinate.impl.Coordinate;
 
 
 public class LocationTest {
