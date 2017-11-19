@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 
 @RunWith(Suite.class)
 
@@ -16,7 +17,7 @@ import org.junit.runners.Suite;
 	TagsTest.class,
 	UserStatusTest.class,
 	ValueTest.class
-	   
+	//ModelPersistenceTestSuite.class // this is not my test, but i do not know how to make it work 
 })
 
 public class ModelTestSuite {
