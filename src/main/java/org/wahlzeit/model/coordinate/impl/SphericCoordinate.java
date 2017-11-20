@@ -67,7 +67,7 @@ public class SphericCoordinate implements Coordinate{
 
 	@Override
 	public double getDistance(Coordinate c) {
-		return asSphericCoordinate().getDistance(c);
+		return asSphericCoordinate().getSphericDistance(c);
 	}
 
 	@Override
