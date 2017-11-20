@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 import org.junit.*;
-import org.wahlzeit.model.coordinate.impl.Coordinate;
+import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.impl.CartesianCoordinate;
 
 
 public class LocationTest {
@@ -13,9 +14,9 @@ public class LocationTest {
 	
 	@Before
 	public void init() {
-		c = new Coordinate (1.0, 2.0, 3.0);
-		c_equal = new Coordinate (1.0, 2.0, 3.0);
-		c_not_equal = new Coordinate (2.0, 2.0, 3.0);
+		c = new CartesianCoordinate (1.0, 2.0, 3.0);
+		c_equal = new CartesianCoordinate (1.0, 2.0, 3.0);
+		c_not_equal = new CartesianCoordinate (2.0, 2.0, 3.0);
 		l = new Location (c);
 		l_equal = new Location (c_equal); 
 		l_not_equal = new Location (c_not_equal); 

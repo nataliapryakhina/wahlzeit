@@ -2,14 +2,14 @@ package org.wahlzeit.model;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import org.wahlzeit.model.owl.OwlModelTestSuite;
-import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
+import org.wahlzeit.model.coordinate.CoordinateTestSuite;
+//import org.wahlzeit.model.owl.OwlModelTestSuite;
+//import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-	AccessRightsTest.class,
-	CoordinateTest.class,
+	AccessRightsTest.class,	
 	FlagReasonTest.class, 
 	GenderTest.class, 
 	GuestTest.class,
@@ -17,7 +17,8 @@ import org.wahlzeit.model.persistence.ModelPersistenceTestSuite;
 	PhotoFilterTest.class, 
 	TagsTest.class,
 	UserStatusTest.class,
-	ValueTest.class
+	ValueTest.class,
+	CoordinateTestSuite.class,
 	//OwlModelTestSuite.class
 	//ModelPersistenceTestSuite.class // this is not my test, but i do not know how to make it work 
 })

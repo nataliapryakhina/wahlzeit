@@ -39,26 +39,64 @@ public class CartesianCoordinate implements Coordinate{
 	public double getZ() {
 		return this.z;
 	}
-	//direct Distance
-	public double getDistance(CartesianCoordinate target) {
-		
+
+
+	@Override
+	public CartesianCoordinate asCartesianCoordinate() {
+		return this;
+	}
+
+	@Override
+	public SphericCoordinate asSphericCoordinate() {
+		double radius;
+		double longitude;
+		double latitude;
+		radius = Math.sqrt(Math.sqrt(x) + Math.sqrt(y) + Math.sqrt(z));
+		if(Double.compare(radius, 0)==0) {
+			longitude =0;
+		}else {
+			longitude = Math.toDegrees(Math.acos(z / radius));
+		}
+		if(Double.compare(x, 0)==0){
+			latitude = 0;
+		}else {
+			latitude = Math.toDegrees(Math.atan(y / x));
+		}
+		return new SphericCoordinate(radius, longitude, latitude);
+	}
+
+	@Override
+	public double getDistance(Coordinate c) {
+		return getCartesianDistance(c);
+	}
+	@Override
+	public double getCartesianDistance(Coordinate c) {
+		CartesianCoordinate c_cartesian = c.asCartesianCoordinate();
 		double limit = Math.sqrt(Double.MAX_VALUE);
-		double x_diff = Math.abs(this.x-target.x); 
-		double y_diff = Math.abs(this.y-target.y);
-		double z_diff = Math.abs(this.z-target.z);
+		double x_diff = Math.abs(getX()-c_cartesian.getX()); 
+		double y_diff = Math.abs(getY()-c_cartesian.getY());
+		double z_diff = Math.abs(getZ()-c_cartesian.getZ());
 		if (x_diff > limit || y_diff>limit || z_diff>limit) {
 			//vielleicht ist schlauer das anderes zu handeln
 			throw new IllegalArgumentException("Distance can not be calculated because of too big arguments"); 
 		}
-		double distance = Math.sqrt((this.x-target.x)*(this.x-target.x)+(this.y-target.y)*(this.y-target.y)+(this.z-target.z)*(this.z-target.z));
+		double distance = Math.sqrt(x_diff*x_diff+y_diff*y_diff+z_diff*z_diff);
 		return distance;
 	}
 	
-	public boolean isEqual(CartesianCoordinate target) {
-		if(target==null) {
+	@Override
+	public double getSphericDistance(Coordinate c) {
+		return asSphericCoordinate().getDistance(c);
+	}
+
+	public boolean isEqual(Coordinate c) {
+		if(c==null) {
 			return false;
 		}
-		if (this.x==target.x && this.y==target.y && this.z==target.z) {
+		CartesianCoordinate c_car= c.asCartesianCoordinate();
+		if (Double.compare(getX(), c_car.getX()) ==0 &&
+				Double.compare(getY(), c_car.getY())==0 &&
+				Double.compare(getZ(), c_car.getZ())==0) {
 			return true;
 		}else {
 			return false;
@@ -69,37 +107,16 @@ public class CartesianCoordinate implements Coordinate{
 		if (o == null) {
 			return false;
 		}
-		if(o instanceof CartesianCoordinate) {
-			CartesianCoordinate target =(CartesianCoordinate) o;
+		if(o instanceof Coordinate) {
+			Coordinate target =(Coordinate) o;
 			return isEqual(target);
 		}else {
 			return false;
 		}
 		 
 	}
+	
 
-	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public SphericCoordinate asSphericCoordinate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public double getDistance(Coordinate otherCoord) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isEqual(Coordinate c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }
