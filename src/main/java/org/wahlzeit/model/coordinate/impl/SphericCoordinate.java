@@ -8,6 +8,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	private double radius;
 	private double longitude;
 	private double latitude;
+	public static final double EARTH_RADIUS_KM= 6370; // is token from wikipedia, to compare results
 	
 	public SphericCoordinate() {
 		
@@ -90,11 +91,20 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return asCartesianCoordinate().getDistance(c);
 	}
 
+	//https://en.wikipedia.org/wiki/Great-circle_distance
 	@Override
 	public double getSphericDistance(Coordinate c) {
-		CartesianCoordinate this_as_Car = this.asCartesianCoordinate();
-		CartesianCoordinate c_as_car = c.asCartesianCoordinate();		
-		return this_as_Car.getDistance(c_as_car);
+		//CartesianCoordinate this_as_Car = this.asCartesianCoordinate();
+		SphericCoordinate c_spher= c.asSphericCoordinate();		
+		double longitude_rad = Math.toRadians(longitude);
+		double latitude_rad = Math.toRadians(latitude);
+		double other_longitude_rad = Math.toRadians(c_spher.getLongitude());
+		double other_latitude_rad = Math.toRadians(c_spher.getLatitude());
+		double delta_longitude=Math.abs(longitude_rad - other_longitude_rad);
+		double delta = Math.acos(Math.sin(latitude_rad)*Math.sin(other_latitude_rad) +
+				Math.cos(latitude_rad)*Math.cos(other_latitude_rad)*Math.cos(delta_longitude));
+		double result = EARTH_RADIUS_KM*delta; // see wiki
+		return result;
 	}
 
 	@Override
