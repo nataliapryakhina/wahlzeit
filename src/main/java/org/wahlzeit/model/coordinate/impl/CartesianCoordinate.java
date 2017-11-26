@@ -1,8 +1,10 @@
 package org.wahlzeit.model.coordinate.impl;
 
+import java.util.Objects;
+
 import org.wahlzeit.model.coordinate.Coordinate;
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 	private double x;
 	private double y;
 	private double z;
@@ -88,7 +90,7 @@ public class CartesianCoordinate implements Coordinate{
 	public double getSphericDistance(Coordinate c) {
 		return asSphericCoordinate().getDistance(c);
 	}
-
+	@Override
 	public boolean isEqual(Coordinate c) {
 		if(c==null) {
 			return false;
@@ -102,18 +104,10 @@ public class CartesianCoordinate implements Coordinate{
 			return false;
 		}
 	}
+	
 	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
-		if(o instanceof Coordinate) {
-			Coordinate target =(Coordinate) o;
-			return isEqual(target);
-		}else {
-			return false;
-		}
-		 
+	public int hashCode() {
+		return Objects.hash(this.x, this.y, this.z);		
 	}
 	
 

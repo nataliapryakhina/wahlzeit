@@ -1,7 +1,9 @@
 package org.wahlzeit.model.coordinate.impl;
+import java.util.Objects;
+
 import org.wahlzeit.model.coordinate.Coordinate;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
 
 	private double radius;
 	private double longitude;
@@ -82,20 +84,7 @@ public class SphericCoordinate implements Coordinate{
 		}
 		return true;
 	}
-	@Override
-	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
-		if(o instanceof Coordinate) {
-			Coordinate target =(Coordinate) o;
-			return isEqual(target);
-		}else {
-			return false;
-		}
-		 
-	}
-
+	
 	@Override
 	public double getCartesianDistance(Coordinate c) {		
 		return asCartesianCoordinate().getDistance(c);
@@ -106,6 +95,11 @@ public class SphericCoordinate implements Coordinate{
 		CartesianCoordinate this_as_Car = this.asCartesianCoordinate();
 		CartesianCoordinate c_as_car = c.asCartesianCoordinate();		
 		return this_as_Car.getDistance(c_as_car);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.radius, this.longitude, this.latitude);
 	}
 
 }
