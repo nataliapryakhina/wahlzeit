@@ -2,7 +2,7 @@ package org.wahlzeit.model.owl;
 
 import org.junit.*;
 
-public class OwlPhotoManagerTest {
+public class OwlPhotoManagerTest extends OwlDomainTest{
 	private OwlPhotoManager m;
 	
 	@Before

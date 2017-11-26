@@ -7,9 +7,9 @@ import org.junit.runners.Suite;
 
 @Suite.SuiteClasses({
 	
-	OwlPhoto.class,
-	OwlPhotoFactory.class,
-	OwlPhotoManager.class
+	OwlPhotoTest.class,
+	OwlPhotoFactoryTest.class,
+	OwlPhotoManagerTest.class
 	  
 })
 public class OwlModelTestSuite {

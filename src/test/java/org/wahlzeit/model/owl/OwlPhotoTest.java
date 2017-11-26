@@ -3,7 +3,7 @@ import org.junit.*;
 import org.wahlzeit.model.PhotoId;
 import org.wahlzeit.model.owl.OwlPhoto.Size;
 
-public class OwlPhotoTest{
+public class OwlPhotoTest extends OwlDomainTest{
 	private OwlPhoto owl;
 	private OwlPhoto owl_null;
 	@Before
