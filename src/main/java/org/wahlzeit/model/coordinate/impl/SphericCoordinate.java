@@ -20,7 +20,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 		setLatitude(latitude);
 	}
 	public void setRadius(double r) {
-		if(radius < 0 ) {
+		if(r < 0 ) {
 			throw new IllegalArgumentException("radius");
 		}else {
 			this.radius=r;
@@ -68,10 +68,6 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return this;
 	}
 
-	@Override
-	public double getDistance(Coordinate c) {
-		return asSphericCoordinate().getSphericDistance(c);
-	}
 
 	@Override
 	public boolean isEqual(Coordinate c) {

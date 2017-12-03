@@ -67,10 +67,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		return new SphericCoordinate(radius, longitude, latitude);
 	}
 
-	@Override
-	public double getDistance(Coordinate c) {
-		return getCartesianDistance(c);
-	}
+
 	@Override
 	public double getCartesianDistance(Coordinate c) {
 		CartesianCoordinate c_cartesian = c.asCartesianCoordinate();
