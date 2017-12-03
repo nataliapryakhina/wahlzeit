@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import org.wahlzeit.model.coordinate.Coordinate;
 
-
 public class CartesianCoordinate extends AbstractCoordinate{
 	private double x;
 	private double y;
@@ -15,23 +14,68 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 	
 	public CartesianCoordinate(double x, double y, double z){
+			
+		//Precondition 
+		CoordinateAssertions.assertValidDouble(x);
+		CoordinateAssertions.assertValidDouble(y);
+		CoordinateAssertions.assertValidDouble(z);
+		
+		//Method 
 		this.x=x;
 		this.y=y;
 		this.z=z;
+		
+		//Postcondition
+		assertClassInvariants();
+		CoordinateAssertions.assertEqualDoubles(this.x, x);
+		CoordinateAssertions.assertEqualDoubles(this.y, y);
+		CoordinateAssertions.assertEqualDoubles(this.z, z);
 	}
 	public void setCoordinates(double x, double y, double z) {
+		//Precondition 
+		CoordinateAssertions.assertValidDouble(x);
+		CoordinateAssertions.assertValidDouble(y);
+		CoordinateAssertions.assertValidDouble(z);
+		
+		//Method
 		this.x=x;
 		this.y=y;
 		this.z=z;
+		
+		//Postcondition
+		assertClassInvariants();
+		CoordinateAssertions.assertEqualDoubles(this.x, x);
+		CoordinateAssertions.assertEqualDoubles(this.y, y);
+		CoordinateAssertions.assertEqualDoubles(this.z, z);
 	}
 	public void setX(double x) {
+		//Precondition 
+		CoordinateAssertions.assertValidDouble(x);
+		
+		//Method
 		this.x=x;
+		//Postcondition
+		CoordinateAssertions.assertEqualDoubles(this.x, x);
+
 	}
 	public void setY(double y) {
+		//Precondition 
+		CoordinateAssertions.assertValidDouble(y);
+		//Method
 		this.y=y;
+		
+		//Postcondition
+		CoordinateAssertions.assertEqualDoubles(this.y, y);
+		
 	}
 	public void setZ(double z) {
+		//Precondition 
+		CoordinateAssertions.assertValidDouble(z);
+		//Method
 		this.z=z;
+		
+		//Postcondition
+		CoordinateAssertions.assertEqualDoubles(this.z, z);
 	}
 	public double getX() {
 		return this.x;
@@ -46,15 +90,24 @@ public class CartesianCoordinate extends AbstractCoordinate{
 
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
+		//Precondition 
+		assertClassInvariants();
+		
+		//Method
 		return this;
 	}
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		//Precondition
+		assertClassInvariants();
+		
+		//Method
 		double radius;
 		double longitude;
 		double latitude;
 		radius = Math.sqrt(Math.sqrt(x) + Math.sqrt(y) + Math.sqrt(z));
+	
 		if(Double.compare(radius, 0)==0) {
 			longitude =0;
 		}else {
@@ -65,31 +118,21 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		}else {
 			latitude = Math.toDegrees(Math.atan(y / x));
 		}
+		//Postcondition
+		CoordinateAssertions.assertValidRadius(radius);
+		CoordinateAssertions.assertValidLongitude(longitude);
+		CoordinateAssertions.assertValidLatitude(latitude);
+		
 		return new SphericCoordinate(radius, longitude, latitude);
 	}
-
-
-	@Override
-	public double getCartesianDistance(Coordinate c) {
-		CartesianCoordinate c_cartesian = c.asCartesianCoordinate();
-		double limit = Math.sqrt(Double.MAX_VALUE);
-		double x_diff = Math.abs(getX()-c_cartesian.getX()); 
-		double y_diff = Math.abs(getY()-c_cartesian.getY());
-		double z_diff = Math.abs(getZ()-c_cartesian.getZ());
-		if (x_diff > limit || y_diff>limit || z_diff>limit) {
-			//vielleicht ist schlauer das anderes zu handeln
-			throw new IllegalArgumentException("Distance can not be calculated because of too big arguments"); 
-		}
-		double distance = Math.sqrt(x_diff*x_diff+y_diff*y_diff+z_diff*z_diff);
-		return distance;
-	}
 	
-	@Override
-	public double getSphericDistance(Coordinate c) {
-		return asSphericCoordinate().getDistance(c);
-	}
+
 	@Override
 	public boolean isEqual(Coordinate c) {
+		//Precondition
+		assertClassInvariants(); 
+		
+		//Method		
 		if(c==null) {
 			return false;
 		}
@@ -105,6 +148,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	
 	@Override
 	public int hashCode() {
+		//Precondition
+		assertClassInvariants(); 
+				
+		//Method
 		return Objects.hash(this.x, this.y, this.z);		
 	}
 
@@ -113,10 +160,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	// it could never be Null, because x, y, z are double and not Double
 	// if value is too big -> it will Overflow, and there will be no big value saved ...
 	// I would still implement some checks, but I hope we will discuss this in the lecture 
-	@Override
+	
 	public void assertClassInvariants() {
-		
-		
+		CoordinateAssertions.assertValidDouble(getX());
+		CoordinateAssertions.assertValidDouble(getY());
+		CoordinateAssertions.assertValidDouble(getZ());
 	}
 
 

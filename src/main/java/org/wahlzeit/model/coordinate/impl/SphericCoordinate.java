@@ -15,9 +15,24 @@ public class SphericCoordinate extends AbstractCoordinate{
 	}
 	
 	public SphericCoordinate(double radius, double longitude, double latitude) {
+		if(radius< 0 ) {
+			throw new IllegalArgumentException("radius");
+		}
+		if(longitude < 0 || longitude > 90) {
+			throw new IllegalArgumentException("longitude");
+		}
+		if(latitude < 0 || latitude > 180) {
+			throw new IllegalArgumentException("latitude");
+		}
 		setRadius(radius);
 		setLongitude(longitude);
 		setLatitude(latitude);
+		
+		//Postcondition 
+		assertClassInvariants();
+		CoordinateAssertions.assertEqualDoubles(this.radius, radius);
+		CoordinateAssertions.assertEqualDoubles(this.longitude, longitude);
+		CoordinateAssertions.assertEqualDoubles(this.latitude, latitude);
 	}
 	public void setRadius(double r) {
 		if(r < 0 ) {
@@ -45,6 +60,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 		
 	}
 	public double getLongitude() {
+		
 		return this.longitude;
 		
 	}
@@ -55,6 +71,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
+		//Precondition
+		assertClassInvariants();
+		
+		//Method
 		double longitude_in_rad = Math.toRadians(this.getLongitude());
 		double latitude_in_rad = Math.toRadians(this.getLatitude());
 		double x = radius * Math.sin(longitude_in_rad) * Math.cos(latitude_in_rad);
@@ -65,12 +85,20 @@ public class SphericCoordinate extends AbstractCoordinate{
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
+		//Precondition
+		assertClassInvariants();
+				
+		//Method
 		return this;
 	}
 
 
 	@Override
 	public boolean isEqual(Coordinate c) {
+		//Precondition
+		assertClassInvariants();
+		
+		//Method
 		SphericCoordinate c_spher = c.asSphericCoordinate();
 		if (Double.compare(this.getRadius(), c_spher.getRadius())!=0) {
 			return false;
@@ -81,37 +109,24 @@ public class SphericCoordinate extends AbstractCoordinate{
 		}
 		return true;
 	}
-	
-	@Override
-	public double getCartesianDistance(Coordinate c) {		
-		return asCartesianCoordinate().getDistance(c);
-	}
 
-	//https://en.wikipedia.org/wiki/Great-circle_distance
-	@Override
-	public double getSphericDistance(Coordinate c) {
-		//CartesianCoordinate this_as_Car = this.asCartesianCoordinate();
-		SphericCoordinate c_spher= c.asSphericCoordinate();		
-		double longitude_rad = Math.toRadians(longitude);
-		double latitude_rad = Math.toRadians(latitude);
-		double other_longitude_rad = Math.toRadians(c_spher.getLongitude());
-		double other_latitude_rad = Math.toRadians(c_spher.getLatitude());
-		double delta_longitude=Math.abs(longitude_rad - other_longitude_rad);
-		double delta = Math.acos(Math.sin(latitude_rad)*Math.sin(other_latitude_rad) +
-				Math.cos(latitude_rad)*Math.cos(other_latitude_rad)*Math.cos(delta_longitude));
-		double result = EARTH_RADIUS_KM*delta; // see wiki
-		return result;
-	}
+
+	
 
 	@Override
 	public int hashCode() {
+		//Precondition
+		assertClassInvariants();
+				
+		//Method
 		return Objects.hash(this.radius, this.longitude, this.latitude);
 	}
 
 	@Override
 	public void assertClassInvariants() {
-		// TODO Auto-generated method stub
-		
+		CoordinateAssertions.assertValidRadius(getRadius());
+		CoordinateAssertions.assertValidLatitude(getLatitude()); 
+		CoordinateAssertions.assertValidLongitude(getLongitude());
 	}
 
 }
