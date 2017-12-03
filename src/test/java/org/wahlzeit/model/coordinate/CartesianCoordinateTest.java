@@ -15,7 +15,7 @@ public class CartesianCoordinateTest {
 	private CartesianCoordinate c_equal;	
 	private CartesianCoordinate c_not_equal;
 	private CartesianCoordinate c_too_much;
-	private CartesianCoordinate c_null_test;
+
 	private Object o;
 	@Before
 	public void init() {
