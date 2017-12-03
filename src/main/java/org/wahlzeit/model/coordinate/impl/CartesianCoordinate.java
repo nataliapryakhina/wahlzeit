@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import org.wahlzeit.model.coordinate.Coordinate;
 
+
 public class CartesianCoordinate extends AbstractCoordinate{
 	private double x;
 	private double y;
@@ -106,7 +107,18 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	public int hashCode() {
 		return Objects.hash(this.x, this.y, this.z);		
 	}
+
 	
+	// I don't really what could i check here 
+	// it could never be Null, because x, y, z are double and not Double
+	// if value is too big -> it will Overflow, and there will be no big value saved ...
+	// I would still implement some checks, but I hope we will discuss this in the lecture 
+	@Override
+	public void assertClassInvariants() {
+		
+		
+	}
+
 
 	
 

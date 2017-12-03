@@ -34,9 +34,12 @@ public abstract class AbstractCoordinate implements Coordinate  {
 		 
 	}
 	
-	@Override
+
 	public abstract int hashCode();	
 	
-	@Override
+
 	public abstract boolean isEqual(Coordinate c);
+	
+	public abstract void assertClassInvariants();
+	
 }

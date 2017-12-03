@@ -108,4 +108,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 		return Objects.hash(this.radius, this.longitude, this.latitude);
 	}
 
+	@Override
+	public void assertClassInvariants() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
