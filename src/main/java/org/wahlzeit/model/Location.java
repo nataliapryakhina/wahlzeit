@@ -1,6 +1,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.model.coordinate.Coordinate;
+import org.wahlzeit.model.coordinate.impl.InvalidCoordinateException;
 
 public class Location {
 	private Coordinate coordinate;
@@ -23,7 +24,7 @@ public class Location {
 		}
 		return false;
 	}
-	public double getDistance(Location l) {
+	public double getDistance(Location l) throws InvalidCoordinateException {
 		return this.coordinate.getDistance(l.coordinate);
 	}
 }

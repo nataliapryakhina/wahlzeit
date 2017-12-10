@@ -2,6 +2,7 @@ package org.wahlzeit.model.coordinate;
 import org.junit.*;
 import org.junit.Assert;
 import org.wahlzeit.model.coordinate.impl.CartesianCoordinate;
+import org.wahlzeit.model.coordinate.impl.InvalidCoordinateException;
 import org.wahlzeit.model.coordinate.impl.SphericCoordinate;
 
 
@@ -18,7 +19,7 @@ public class CartesianCoordinateTest {
 
 	private Object o;
 	@Before
-	public void init() {
+	public void init() throws InvalidCoordinateException {
 	
 		c1 = new CartesianCoordinate(1.0, 2.0 , 3.0);
 		c_equal = new CartesianCoordinate(1.0, 2.0 , 3.0);
@@ -59,11 +60,11 @@ public class CartesianCoordinateTest {
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
-	public void getDistanceTest() {
+	public void getDistanceTest() throws IllegalArgumentException, InvalidCoordinateException {
 		c1.getDistance(c_too_much);
 	}
 	@Test
-	public void getDistanceCorrectTest() {
+	public void getDistanceCorrectTest() throws IllegalArgumentException, InvalidCoordinateException {
 		double expected = 1.0;
 		double actual = c1.getDistance(c_not_equal);
 		Assert.assertEquals(expected, actual, 0); 
@@ -75,11 +76,11 @@ public class CartesianCoordinateTest {
 		Assert.assertFalse(too_simple_car.isEqual(simple_spher.asCartesianCoordinate()));
 	}
 	@Test
-	public void getCartesianDistanceTest() {
+	public void getCartesianDistanceTest() throws IllegalArgumentException, InvalidCoordinateException {
 		Assert.assertEquals(simple_spher.getCartesianDistance(simple_car), 0, 0.01);
 	};
 	@Test
-	public void asSphericCoordinateTest() {
+	public void asSphericCoordinateTest() throws InvalidCoordinateException {
 		Assert.assertEquals(simple_spher,simple_spher.asSphericCoordinate());
 
 		Assert.assertNotEquals(simple_spher,too_simple_car.asSphericCoordinate());

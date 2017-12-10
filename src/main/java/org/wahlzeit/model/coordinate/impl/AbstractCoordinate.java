@@ -9,12 +9,13 @@ public abstract class AbstractCoordinate implements Coordinate  {
 	public abstract CartesianCoordinate asCartesianCoordinate();
 	
 	
-	public double getCartesianDistance(Coordinate other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Coordinate could not be null"); 
-		}
+	public double getCartesianDistance(Coordinate other) throws IllegalArgumentException, InvalidCoordinateException{
 		//Preconditions
-		CoordinateAssertions.assertCoordinateIsNotNull(other);
+		try {
+			CoordinateAssertions.assertCoordinateIsNotNull(other);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		assertClassInvariants();
 		
 		//Method
@@ -30,27 +31,38 @@ public abstract class AbstractCoordinate implements Coordinate  {
 		double distance = Math.sqrt(x_diff*x_diff+y_diff*y_diff+z_diff*z_diff);
 		
 		//Postconditions 
-		CoordinateAssertions.assertValidDouble(distance);
-		CoordinateAssertions.assertValidDistance(distance);
+		try {
+			CoordinateAssertions.assertValidDouble(distance);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
+		try {
+			CoordinateAssertions.assertValidDistance(distance);
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
+		}	
 		return distance;
 	}
 	
 
-	public abstract SphericCoordinate asSphericCoordinate();
+	public abstract SphericCoordinate asSphericCoordinate() throws InvalidCoordinateException;
 	
 
 	//https://en.wikipedia.org/wiki/Great-circle_distance
-	public double getSphericDistance(Coordinate other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Coordinate could not be null"); 
-		}
+	public double getSphericDistance(Coordinate other) throws InvalidCoordinateException {
 		//Precondition 
-		CoordinateAssertions.assertCoordinateIsNotNull(other);
+		try {
+			CoordinateAssertions.assertCoordinateIsNotNull(other);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		assertClassInvariants();
 		
 		//Impl
 		SphericCoordinate this_spher= this.asSphericCoordinate();		
-		SphericCoordinate other_spher= other.asSphericCoordinate();		
+		SphericCoordinate other_spher= other.asSphericCoordinate();	
+		
+			
 		double longitude_rad = Math.toRadians(this_spher.getLongitude());
 		double latitude_rad = Math.toRadians(this_spher.getLatitude());
 		double other_longitude_rad = Math.toRadians(other_spher.getLongitude());
@@ -68,20 +80,30 @@ public abstract class AbstractCoordinate implements Coordinate  {
 	}
 	
 
-	public double getDistance(Coordinate other) {
-		if (other == null) {
-			throw new IllegalArgumentException("Coordinate could not be null"); 
-		}
+	public double getDistance(Coordinate other) throws IllegalArgumentException, InvalidCoordinateException {
 		//Precondition 
-		CoordinateAssertions.assertCoordinateIsNotNull(other);
+		try {
+			CoordinateAssertions.assertCoordinateIsNotNull(other);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		assertClassInvariants();
 		
 		//Working part
 		double distance = getCartesianDistance(other);	
 		
 		//Postcondition
-		CoordinateAssertions.assertValidDouble(distance);
-		CoordinateAssertions.assertValidDistance(distance);
+		try {
+			CoordinateAssertions.assertValidDouble(distance);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
+		try {
+			CoordinateAssertions.assertValidDistance(distance);
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
+		}
+		
 		return distance;
 
 	}
@@ -93,6 +115,7 @@ public abstract class AbstractCoordinate implements Coordinate  {
 		if(o instanceof Coordinate) {
 			Coordinate target =(Coordinate) o;
 			return isEqual(target);
+			
 		}else {
 			return false;
 		}
@@ -104,6 +127,6 @@ public abstract class AbstractCoordinate implements Coordinate  {
 
 	public abstract boolean isEqual(Coordinate c);
 	
-	public abstract void assertClassInvariants();
+	public abstract void assertClassInvariants() throws IllegalArgumentException, InvalidCoordinateException;
 	
 }

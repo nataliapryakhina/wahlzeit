@@ -45,9 +45,13 @@ public class OwlPhotoFactory extends PhotoFactory {
 	/**
 	 * Method to set the singleton instance of PhotoFactory.
 	 */
-	protected static synchronized void setInstance(OwlPhotoFactory owlPhotoFactory) {
-		if (instance != null) {
-			throw new IllegalStateException("attempt to initalize PhotoFactory twice");
+	protected static synchronized void setInstance(OwlPhotoFactory owlPhotoFactory) throws IllegalArgumentException{
+		try{
+			if (instance != null) {
+				throw new IllegalStateException("attempt to initalize PhotoFactory twice");
+			}
+		}catch (IllegalStateException e) {
+			System.out.println(e.getMessage());			
 		}
 
 		instance = owlPhotoFactory;
@@ -65,7 +69,12 @@ public class OwlPhotoFactory extends PhotoFactory {
 	 * Creates a new photo with the specified id
 	 */
 	@Override
-	public Photo createPhoto(PhotoId id) {
+	public Photo createPhoto(PhotoId id) throws IllegalArgumentException{
+		try {
+			OwlAssertions.assertParameterNotNull(id); 
+		}catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());			
+		}
 		return new OwlPhoto(id);
 	}
 	

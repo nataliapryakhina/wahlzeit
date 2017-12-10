@@ -30,18 +30,37 @@ public class OwlPhoto extends Photo {
 	}
 	public OwlPhoto(PhotoId myId) {
 		super(myId);
+		OwlAssertions.assertParameterNotNull(myId); 
 	}
-	public OwlPhoto (PhotoId myId, String species, Size size, int color) {
+	public OwlPhoto (PhotoId myId, String species, Size size, int color) throws IllegalArgumentException{
+		try {
+			OwlAssertions.assertParameterNotNull(myId); 
+			OwlAssertions.assertParameterNotNull(species); 
+			OwlAssertions.assertParameterNotNull(size); 
+		}catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());			
+		}
 		this.id = myId;
 		this.species = species;
 		this.size= size;
 		this.color=color; 
 		
 	}
-	public void setSpecies(String species) {
+	public void setSpecies(String species) throws IllegalArgumentException{
+		try {
+			OwlAssertions.assertParameterNotNull(species); 
+		}catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());			
+		}
+		
 		this.species=species;
 	}
-	public void setSize(Size size) {
+	public void setSize(Size size) throws IllegalArgumentException{
+		try {
+			OwlAssertions.assertParameterNotNull(size); 
+		}catch(IllegalArgumentException e){
+			System.out.println(e.getMessage());			
+		}
 		this.size=size;
 	}
 	public void setColor(int color) {

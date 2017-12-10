@@ -14,13 +14,16 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 	*/
 	
-	public CartesianCoordinate(double x, double y, double z){
+	public CartesianCoordinate(double x, double y, double z) throws IllegalArgumentException{
 			
 		//Precondition 
-		CoordinateAssertions.assertValidDouble(x);
-		CoordinateAssertions.assertValidDouble(y);
-		CoordinateAssertions.assertValidDouble(z);
-		
+		try {
+			CoordinateAssertions.assertValidDouble(x);
+			CoordinateAssertions.assertValidDouble(y);
+			CoordinateAssertions.assertValidDouble(z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		//Method 
 		this.x=x;
 		this.y=y;
@@ -28,15 +31,23 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		
 		//Postcondition
 		assertClassInvariants();
-		CoordinateAssertions.assertEqualDoubles(this.x, x);
-		CoordinateAssertions.assertEqualDoubles(this.y, y);
-		CoordinateAssertions.assertEqualDoubles(this.z, z);
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.x, x);
+			CoordinateAssertions.assertEqualDoubles(this.y, y);
+			CoordinateAssertions.assertEqualDoubles(this.z, z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 	}
-	public void setCoordinates(double x, double y, double z) {
+	public void setCoordinates(double x, double y, double z) throws InvalidCoordinateException {
 		//Precondition 
-		CoordinateAssertions.assertValidDouble(x);
-		CoordinateAssertions.assertValidDouble(y);
-		CoordinateAssertions.assertValidDouble(z);
+		try {
+			CoordinateAssertions.assertValidDouble(x);
+			CoordinateAssertions.assertValidDouble(y);
+			CoordinateAssertions.assertValidDouble(z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}	
 		
 		//Method
 		this.x=x;
@@ -45,38 +56,66 @@ public class CartesianCoordinate extends AbstractCoordinate{
 		
 		//Postcondition
 		assertClassInvariants();
-		CoordinateAssertions.assertEqualDoubles(this.x, x);
-		CoordinateAssertions.assertEqualDoubles(this.y, y);
-		CoordinateAssertions.assertEqualDoubles(this.z, z);
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.x, x);
+			CoordinateAssertions.assertEqualDoubles(this.y, y);
+			CoordinateAssertions.assertEqualDoubles(this.z, z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 	}
-	public void setX(double x) {
+	public void setX(double x) throws InvalidCoordinateException  {
 		//Precondition 
-		CoordinateAssertions.assertValidDouble(x);
-		
+		try {
+			CoordinateAssertions.assertValidDouble(x);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		//Method
 		this.x=x;
 		//Postcondition
-		CoordinateAssertions.assertEqualDoubles(this.x, x);
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.x, x);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 
 	}
-	public void setY(double y) {
+	public void setY(double y) throws InvalidCoordinateException {
 		//Precondition 
-		CoordinateAssertions.assertValidDouble(y);
+		try {
+			CoordinateAssertions.assertValidDouble(y);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		//Method
 		this.y=y;
 		
 		//Postcondition
-		CoordinateAssertions.assertEqualDoubles(this.y, y);
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.y, y);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
+		
 		
 	}
-	public void setZ(double z) {
+	public void setZ(double z) throws InvalidCoordinateException {
 		//Precondition 
-		CoordinateAssertions.assertValidDouble(z);
+		try {
+			CoordinateAssertions.assertValidDouble(z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 		//Method
 		this.z=z;
 		
 		//Postcondition
-		CoordinateAssertions.assertEqualDoubles(this.z, z);
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.z, z);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 	}
 	public double getX() {
 		return this.x;
@@ -99,7 +138,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	}
 
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public SphericCoordinate asSphericCoordinate() throws InvalidCoordinateException {
 		//Precondition
 		assertClassInvariants();
 		
@@ -120,39 +159,40 @@ public class CartesianCoordinate extends AbstractCoordinate{
 			latitude = Math.toDegrees(Math.atan(y / x));
 		}
 		//Postcondition
-		CoordinateAssertions.assertValidRadius(radius);
-		CoordinateAssertions.assertValidLongitude(longitude);
-		CoordinateAssertions.assertValidLatitude(latitude);
-		
+		try {
+			CoordinateAssertions.assertValidRadius(radius);
+			CoordinateAssertions.assertValidLongitude(longitude);
+			CoordinateAssertions.assertValidLatitude(latitude);
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
+		}
 		return new SphericCoordinate(radius, longitude, latitude);
 	}
 	
 
 	@Override
 	public boolean isEqual(Coordinate c) {
-		//Precondition
-		assertClassInvariants(); 
+		assertClassInvariants();
 		
 		//Method		
 		if(c==null) {
 			return false;
 		}
-		CartesianCoordinate c_car= c.asCartesianCoordinate();
+		
+		CartesianCoordinate c_car;
+		c_car =  c.asCartesianCoordinate();
 		if (Double.compare(getX(), c_car.getX()) ==0 &&
-				Double.compare(getY(), c_car.getY())==0 &&
-				Double.compare(getZ(), c_car.getZ())==0) {
+			Double.compare(getY(), c_car.getY())==0 &&
+			Double.compare(getZ(), c_car.getZ())==0) {
 			return true;
 		}else {
 			return false;
 		}
+
 	}
 	
 	@Override
 	public int hashCode() {
-		//Precondition
-		assertClassInvariants(); 
-				
-		//Method
 		return Objects.hash(this.x, this.y, this.z);		
 	}
 
@@ -162,10 +202,14 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	// if value is too big -> it will Overflow, and there will be no big value saved ...
 	// I would still implement some checks, but I hope we will discuss this in the lecture 
 	
-	public void assertClassInvariants() {
-		CoordinateAssertions.assertValidDouble(getX());
-		CoordinateAssertions.assertValidDouble(getY());
-		CoordinateAssertions.assertValidDouble(getZ());
+	public void assertClassInvariants() throws IllegalArgumentException {
+		try {
+			CoordinateAssertions.assertValidDouble(getX());
+			CoordinateAssertions.assertValidDouble(getY());
+			CoordinateAssertions.assertValidDouble(getZ());
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
 	}
 
 

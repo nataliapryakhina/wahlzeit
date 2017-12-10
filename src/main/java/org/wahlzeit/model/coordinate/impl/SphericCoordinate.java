@@ -14,46 +14,58 @@ public class SphericCoordinate extends AbstractCoordinate{
 	public SphericCoordinate() {		
 	}
 	*/
-	public SphericCoordinate(double radius, double longitude, double latitude) {
-		if(radius< 0 ) {
-			throw new IllegalArgumentException("radius");
+	public SphericCoordinate(double radius, double longitude, double latitude) throws InvalidCoordinateException{
+		//Precondition
+		try {
+			CoordinateAssertions.assertValidRadius(radius);
+			CoordinateAssertions.assertValidLongitude(longitude);
+			CoordinateAssertions.assertValidLatitude(latitude); 			
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
 		}
-		if(longitude < 0 || longitude > 90) {
-			throw new IllegalArgumentException("longitude");
-		}
-		if(latitude < 0 || latitude > 180) {
-			throw new IllegalArgumentException("latitude");
-		}
+		
 		setRadius(radius);
 		setLongitude(longitude);
 		setLatitude(latitude);
 		
 		//Postcondition 
 		assertClassInvariants();
-		CoordinateAssertions.assertEqualDoubles(this.radius, radius);
-		CoordinateAssertions.assertEqualDoubles(this.longitude, longitude);
-		CoordinateAssertions.assertEqualDoubles(this.latitude, latitude);
-	}
-	public void setRadius(double r) {
-		if(r < 0 ) {
-			throw new IllegalArgumentException("radius");
-		}else {
-			this.radius=r;
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.radius, radius);
+			CoordinateAssertions.assertEqualDoubles(this.longitude, longitude);
+			CoordinateAssertions.assertEqualDoubles(this.latitude, latitude);		
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
 		}
+		
 	}
-	public void setLongitude(double longitude) {
-		if(longitude < 0 || longitude > 90) {
-			throw new IllegalArgumentException("longitude");
-		}else {
-			this.longitude=longitude;
-		}		
-	}
-	public void setLatitude(double latitude) {
-		if(latitude < 0 || latitude > 180) {
-			throw new IllegalArgumentException("latitude");
-		}else {
-			this.latitude=latitude;
+	public void setRadius(double r) throws InvalidCoordinateException{
+		//Precondition
+		try {
+			CoordinateAssertions.assertValidRadius(radius);			
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
 		}
+		this.radius=r;
+		
+	}
+	public void setLongitude(double longitude) throws IllegalArgumentException{
+		//Precondition
+		try {
+			CoordinateAssertions.assertEqualDoubles(this.longitude, longitude);
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
+		this.longitude=longitude;
+	}
+	public void setLatitude(double latitude) throws InvalidCoordinateException{
+		//Precondition
+		try {
+			CoordinateAssertions.assertValidLatitude(latitude); 			
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());		
+		}
+		this.latitude=latitude;
 	}
 	public double getRadius() {
 		return this.radius;
@@ -72,7 +84,7 @@ public class SphericCoordinate extends AbstractCoordinate{
 	@Override
 	public CartesianCoordinate asCartesianCoordinate() {
 		//Precondition
-		assertClassInvariants();
+		//assertClassInvariants();
 		
 		//Method
 		double longitude_in_rad = Math.toRadians(this.getLongitude());
@@ -85,29 +97,32 @@ public class SphericCoordinate extends AbstractCoordinate{
 
 	@Override
 	public SphericCoordinate asSphericCoordinate() {
-		//Precondition
-		assertClassInvariants();
-				
+
 		//Method
 		return this;
 	}
 
 
 	@Override
-	public boolean isEqual(Coordinate c) {
-		//Precondition
-		assertClassInvariants();
-		
+	public boolean isEqual(Coordinate c)  {
+
 		//Method
-		SphericCoordinate c_spher = c.asSphericCoordinate();
-		if (Double.compare(this.getRadius(), c_spher.getRadius())!=0) {
-			return false;
-		}else if (Double.compare(this.getLongitude(), c_spher.getLongitude())!=0) {
-			return false;
-		}else if (Double.compare(this.getLatitude(), c_spher.getLatitude())!=0) {
+		SphericCoordinate c_spher;
+		try {
+			c_spher = c.asSphericCoordinate();
+			if (Double.compare(this.getRadius(), c_spher.getRadius())!=0) {
+				return false;
+			}else if (Double.compare(this.getLongitude(), c_spher.getLongitude())!=0) {
+				return false;
+			}else if (Double.compare(this.getLatitude(), c_spher.getLatitude())!=0) {
+				return false;
+			}
+			return true;
+		} catch (InvalidCoordinateException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
-		return true;
+		
 	}
 
 
@@ -115,18 +130,20 @@ public class SphericCoordinate extends AbstractCoordinate{
 
 	@Override
 	public int hashCode() {
-		//Precondition
-		assertClassInvariants();
-				
+		
 		//Method
 		return Objects.hash(this.radius, this.longitude, this.latitude);
 	}
 
 	@Override
-	public void assertClassInvariants() {
-		CoordinateAssertions.assertValidRadius(getRadius());
-		CoordinateAssertions.assertValidLatitude(getLatitude()); 
-		CoordinateAssertions.assertValidLongitude(getLongitude());
+	public void assertClassInvariants() throws InvalidCoordinateException{
+		try {
+			CoordinateAssertions.assertValidRadius(getRadius());
+			CoordinateAssertions.assertValidLatitude(getLatitude()); 
+			CoordinateAssertions.assertValidLongitude(getLongitude());
+		} catch(InvalidCoordinateException e) {
+			System.out.println(e.getMessage());		
+		}
 	}
 
 }

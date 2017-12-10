@@ -10,13 +10,12 @@ public class OwlPhotoTest extends OwlDomainTest{
 	public void start() throws Exception {
 		
 		owl = new OwlPhoto(PhotoId.getNextId(), "Grey owl", Size.SMALL, 0100 ); 
-		owl_null = new OwlPhoto(null);
+
 	}
 	
 	@Test
 	public void checkConstructors()  throws Exception{
 		Assert.assertNotNull(owl);
-		Assert.assertNotNull(owl_null);
 	}
 	
 	

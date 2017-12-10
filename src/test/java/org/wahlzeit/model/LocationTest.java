@@ -32,10 +32,7 @@ public class LocationTest {
 	}
 	
 
-	@Test
-	public void getDistanceTest() {
-		Assert.assertEquals(1.0, l.getDistance(l_not_equal), 0);
-	}
+	
 
 	
 
