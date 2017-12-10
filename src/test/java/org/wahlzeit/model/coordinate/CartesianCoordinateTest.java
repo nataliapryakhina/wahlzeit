@@ -19,7 +19,7 @@ public class CartesianCoordinateTest {
 	private Object o;
 	@Before
 	public void init() {
-		c = new CartesianCoordinate();
+	
 		c1 = new CartesianCoordinate(1.0, 2.0 , 3.0);
 		c_equal = new CartesianCoordinate(1.0, 2.0 , 3.0);
 		c_not_equal = new CartesianCoordinate(2.0, 2.0 , 3.0);
