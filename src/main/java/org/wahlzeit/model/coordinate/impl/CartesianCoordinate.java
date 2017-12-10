@@ -9,9 +9,10 @@ public class CartesianCoordinate extends AbstractCoordinate{
 	private double y;
 	private double z;
 	
-	public CartesianCoordinate() {
-		
+	/*
+	public CartesianCoordinate() {		
 	}
+	*/
 	
 	public CartesianCoordinate(double x, double y, double z){
 			

@@ -14,7 +14,8 @@ public class CoordinateAssertions{
 	}
 
 	public static void assertValidDouble(double d) {
-		assert Double.compare(d, Double.MAX_VALUE) <= 0;		
+		assert !Double.isNaN(d);
+		assert !Double.isInfinite(d);
 	}
 	
 	public static void assertValidDistance(double distance) {

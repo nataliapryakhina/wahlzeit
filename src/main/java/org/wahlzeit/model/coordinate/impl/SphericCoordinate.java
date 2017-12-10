@@ -10,10 +10,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 	private double latitude;
 	public static final double EARTH_RADIUS_KM= 6370; // is token from wikipedia, to compare results
 	
-	public SphericCoordinate() {
-		
+	/* 
+	public SphericCoordinate() {		
 	}
-	
+	*/
 	public SphericCoordinate(double radius, double longitude, double latitude) {
 		if(radius< 0 ) {
 			throw new IllegalArgumentException("radius");
