@@ -21,14 +21,14 @@ public class CartesianCoordinateTest {
 	@Before
 	public void init() throws InvalidCoordinateException {
 	
-		c1 = new CartesianCoordinate(1.0, 2.0 , 3.0);
-		c_equal = new CartesianCoordinate(1.0, 2.0 , 3.0);
-		c_not_equal = new CartesianCoordinate(2.0, 2.0 , 3.0);
-		c_too_much = new CartesianCoordinate (Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+		c1 = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0 , 3.0);
+		c_equal = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0 , 3.0);
+		c_not_equal =CartesianCoordinate.getCartesianCoordinate(2.0, 2.0 , 3.0);
+		c_too_much = CartesianCoordinate.getCartesianCoordinate (Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
 		o = new Object();
-		simple_car = new CartesianCoordinate(2.0, 3.0, 8.0);
-		too_simple_car = new CartesianCoordinate(0.0, 0.0, 0.0);
-		simple_spher = new SphericCoordinate(8.77, 24.26, 56.31);
+		simple_car = CartesianCoordinate.getCartesianCoordinate(2.0, 3.0, 8.0);
+		too_simple_car = CartesianCoordinate.getCartesianCoordinate(0.0, 0.0, 0.0);
+		simple_spher = SphericCoordinate.getSphericCoordinate(8.77, 24.26, 56.31);
 	}
 	/*
 	@Test

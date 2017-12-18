@@ -15,10 +15,10 @@ public class SphericCoordinateTest {
 	SphericCoordinate simple_spher_2;
 	@Before
 	public void init() throws InvalidCoordinateException {
-		simple_car = new CartesianCoordinate(2.0, 3.0, 8.0);
-		too_simple_car = new CartesianCoordinate(0.0, 0.0, 0.0);
-		simple_spher = new SphericCoordinate(8.77, 24.26, 56.31);
-		simple_spher_2 = new SphericCoordinate(8.77, 24.26, 56.31);
+		simple_car = CartesianCoordinate.getCartesianCoordinate(2.0, 3.0, 8.0);
+		too_simple_car = CartesianCoordinate.getCartesianCoordinate(0.0, 0.0, 0.0);
+		simple_spher = SphericCoordinate.getSphericCoordinate(8.77, 24.26, 56.31);
+		simple_spher_2 = SphericCoordinate.getSphericCoordinate(8.77, 24.26, 56.31);
 	}
 	@Test
 	public void asCartesianCoordinateTest() {

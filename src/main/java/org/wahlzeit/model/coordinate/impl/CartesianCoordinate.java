@@ -4,16 +4,16 @@ import java.util.Objects;
 
 import org.wahlzeit.model.coordinate.Coordinate;
 
-public class CartesianCoordinate extends AbstractCoordinate {
-	private double x;
-	private double y;
-	private double z;
+public final class CartesianCoordinate extends AbstractCoordinate {
+	private final double x;
+	private final double y;
+	private final double z;
 
 	/*
 	 * public CartesianCoordinate() { }
 	 */
 
-	public CartesianCoordinate(double x, double y, double z) throws IllegalArgumentException {
+	private CartesianCoordinate(double x, double y, double z) throws IllegalArgumentException {
 
 		// Precondition
 		CoordinateAssertions.assertValidDouble(x);
@@ -33,80 +33,28 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		CoordinateAssertions.assertEqualDoubles(this.z, z);
 
 	}
-
-	public void setCoordinates(double x, double y, double z) throws InvalidCoordinateException {
-		// Precondition
-		CoordinateAssertions.assertValidDouble(x);
-		CoordinateAssertions.assertValidDouble(y);
-		CoordinateAssertions.assertValidDouble(z);
-
-		// Method
-		this.x = x;
-		this.y = y;
-		this.z = z;
-
-		// Postcondition
-		assertClassInvariants();
-		CoordinateAssertions.assertEqualDoubles(this.x, x);
-		CoordinateAssertions.assertEqualDoubles(this.y, y);
-		CoordinateAssertions.assertEqualDoubles(this.z, z);
-
+	//new get method for value objects
+	public final static CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
+		CartesianCoordinate c_car= new CartesianCoordinate(x, y, z);
+		Coordinate c_hash_maped = AbstractCoordinate.returnFromCoordinateValueObjectsMap(c_car);
+		return c_hash_maped.asCartesianCoordinate();
 	}
 
-	public void setX(double x) throws InvalidCoordinateException {
-		// Precondition
 
-		CoordinateAssertions.assertValidDouble(x);
-
-		// Method
-		this.x = x;
-		// Postcondition
-		CoordinateAssertions.assertEqualDoubles(this.x, x);
-
-	}
-
-	public void setY(double y) throws InvalidCoordinateException {
-		// Precondition
-
-		CoordinateAssertions.assertValidDouble(y);
-
-		// Method
-		this.y = y;
-
-		// Postcondition
-
-		CoordinateAssertions.assertEqualDoubles(this.y, y);
-
-	}
-
-	public void setZ(double z) throws InvalidCoordinateException {
-		// Precondition
-
-		CoordinateAssertions.assertValidDouble(z);
-
-		// Method
-		this.z = z;
-
-		// Postcondition
-
-		CoordinateAssertions.assertEqualDoubles(this.z, z);
-
-	}
-
-	public double getX() {
+	public final double getX() {
 		return this.x;
 	}
 
-	public double getY() {
+	public final double getY() {
 		return this.y;
 	}
 
-	public double getZ() {
+	public final double getZ() {
 		return this.z;
 	}
 
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public final CartesianCoordinate asCartesianCoordinate() {
 		// Precondition
 		assertClassInvariants();
 
@@ -115,7 +63,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public SphericCoordinate asSphericCoordinate() throws InvalidCoordinateException {
+	public final SphericCoordinate asSphericCoordinate() throws InvalidCoordinateException {
 		// Precondition
 		assertClassInvariants();
 
@@ -141,11 +89,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		CoordinateAssertions.assertValidLongitude(longitude);
 		CoordinateAssertions.assertValidLatitude(latitude);
 
-		return new SphericCoordinate(radius, longitude, latitude);
+		return SphericCoordinate.getSphericCoordinate(radius, longitude, latitude);
+	}
+	public  int hashCode() {
+		return Objects.hash(this.x, this.y, this.z);
+		
 	}
 
 	@Override
-	public boolean isEqual(Coordinate c) {
+	public final boolean isEqual(Coordinate c) {
 		assertClassInvariants();
 
 		// Method
@@ -164,19 +116,9 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(this.x, this.y, this.z);
-	}
 
-	// I don't really what could i check here
-	// it could never be Null, because x, y, z are double and not Double
-	// if value is too big -> it will Overflow, and there will be no big value saved
-	// ...
-	// I would still implement some checks, but I hope we will discuss this in the
-	// lecture
 
-	public void assertClassInvariants() throws IllegalArgumentException {
+	public final void assertClassInvariants() throws IllegalArgumentException {
 
 		CoordinateAssertions.assertValidDouble(getX());
 		CoordinateAssertions.assertValidDouble(getY());

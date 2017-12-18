@@ -4,26 +4,26 @@ import java.util.Objects;
 
 import org.wahlzeit.model.coordinate.Coordinate;
 
-public class SphericCoordinate extends AbstractCoordinate {
+public final class SphericCoordinate extends AbstractCoordinate {
 
 	private double radius;
 	private double longitude;
 	private double latitude;
-	public static final double EARTH_RADIUS_KM = 6370; // is token from wikipedia, to compare results
+	private static final double EARTH_RADIUS_KM = 6370; // is token from wikipedia, to compare results
 
 	/*
 	 * public SphericCoordinate() { }
 	 */
-	public SphericCoordinate(double radius, double longitude, double latitude) throws InvalidCoordinateException {
+	private SphericCoordinate(double radius, double longitude, double latitude) throws InvalidCoordinateException {
 		// Precondition
 
 		CoordinateAssertions.assertValidRadius(radius);
 		CoordinateAssertions.assertValidLongitude(longitude);
 		CoordinateAssertions.assertValidLatitude(latitude);
 
-		setRadius(radius);
-		setLongitude(longitude);
-		setLatitude(latitude);
+		this.radius = radius;
+		this.longitude = longitude;
+		this.latitude = latitude;
 
 		// Postcondition
 		assertClassInvariants();
@@ -34,70 +34,56 @@ public class SphericCoordinate extends AbstractCoordinate {
 
 	}
 
-	public void setRadius(double r) throws InvalidCoordinateException {
-		// Precondition
-
-		CoordinateAssertions.assertValidRadius(radius);
-
-		this.radius = r;
+	// new get method for value objects
+	public final static SphericCoordinate getSphericCoordinate(double radius, double longitude, double latitude) throws InvalidCoordinateException {
+		SphericCoordinate c_spher = new SphericCoordinate(radius, longitude, latitude);
+		Coordinate c_hash_maped = AbstractCoordinate.returnFromCoordinateValueObjectsMap(c_spher);
+		return c_hash_maped.asSphericCoordinate();
 	}
 
-	public void setLongitude(double longitude) throws IllegalArgumentException, InvalidCoordinateException {
-		// Precondition
-		CoordinateAssertions.assertValidLatitude(longitude);
-		
-
-		this.longitude = longitude;
-
-	}
-
-	public void setLatitude(double latitude) throws InvalidCoordinateException {
-		// Precondition
-
-		CoordinateAssertions.assertValidLatitude(latitude);
-
-		this.latitude = latitude;
-	}
-
-	public double getRadius() {
+	public final double getRadius() {
 		return this.radius;
 
 	}
 
-	public double getLongitude() {
+	public final double getLongitude() {
 
 		return this.longitude;
 
 	}
 
-	public double getLatitude() {
+	public final double getLatitude() {
 		return this.latitude;
 
 	}
 
 	@Override
-	public CartesianCoordinate asCartesianCoordinate() {
+	public final CartesianCoordinate asCartesianCoordinate() {
 		// Precondition
 		// assertClassInvariants();
 
 		// Method
-		double longitude_in_rad = Math.toRadians(this.getLongitude());
-		double latitude_in_rad = Math.toRadians(this.getLatitude());
+		
+		double longitude_in_rad = Math.toRadians(this.longitude);
+		double latitude_in_rad = Math.toRadians(this.latitude);
 		double x = radius * Math.sin(longitude_in_rad) * Math.cos(latitude_in_rad);
 		double y = radius * Math.sin(longitude_in_rad) * Math.sin(latitude_in_rad);
 		double z = radius * Math.cos(longitude_in_rad);
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.getCartesianCoordinate(x, y, z);
 	}
 
 	@Override
-	public SphericCoordinate asSphericCoordinate() {
+	public final SphericCoordinate asSphericCoordinate() {
 
 		// Method
 		return this;
 	}
+	public int hashCode() {
+		return Objects.hash(this.radius, this.longitude, this.latitude);
+	}
 
 	@Override
-	public boolean isEqual(Coordinate c) {
+	public final boolean isEqual(Coordinate c) {
 
 		// Method
 		SphericCoordinate c_spher;
@@ -119,14 +105,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public int hashCode() {
-
-		// Method
-		return Objects.hash(this.radius, this.longitude, this.latitude);
-	}
-
-	@Override
-	public void assertClassInvariants() throws InvalidCoordinateException {
+	public final void assertClassInvariants() throws InvalidCoordinateException {
 
 		CoordinateAssertions.assertValidRadius(getRadius());
 		CoordinateAssertions.assertValidLatitude(getLatitude());

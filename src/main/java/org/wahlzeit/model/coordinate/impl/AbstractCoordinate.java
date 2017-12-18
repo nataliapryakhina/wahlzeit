@@ -1,8 +1,49 @@
+//            \ /
+//          -->*<--
+//            /_\
+//           /_\_\
+//          /_/_/_\
+//          /_\_\_\
+//         /_/_/_/_\
+//         /_\_\_\_\
+//        /_/_/_/_/_\
+//        /_\_\_\_\_\
+//       /_/_/_/_/_/_\
+//       /_\_\_\_\_\_\
+//      /_/_/_/_/_/_/_\
+//           [___]
+//
+// Frohe Weihnachten! 
+
+
+
 package org.wahlzeit.model.coordinate.impl;
+
+import java.util.HashMap;
+import java.util.Objects;
 
 import org.wahlzeit.model.coordinate.Coordinate;
 
 public abstract class AbstractCoordinate implements Coordinate {
+	
+	//Turn the Coordinate classes into value object classes cw-10
+	protected final static HashMap<Integer, Coordinate> coordinateValueObjectsMap = new HashMap<>();
+	
+	public static boolean existsInCoordinateValueObjectsMap(Coordinate c) {
+		coordinateValueObjectsMap.containsKey(c.hashCode());
+		return false;
+		
+	}
+	public static void saveToCoordinateValueObjectsMap(Coordinate c) {
+		if(existsInCoordinateValueObjectsMap(c) == false) {
+			coordinateValueObjectsMap.put(c.hashCode(), c);			
+		}
+	}
+	public static Coordinate returnFromCoordinateValueObjectsMap(Coordinate c) {
+		saveToCoordinateValueObjectsMap(c);
+		return coordinateValueObjectsMap.get(c.hashCode());	
+	}
+	
 	public static final double EARTH_RADIUS_KM = 6370; // is token from wikipedia, to compare results
 
 	public abstract CartesianCoordinate asCartesianCoordinate();
@@ -98,8 +139,9 @@ public abstract class AbstractCoordinate implements Coordinate {
 		}
 
 	}
-
-	public abstract int hashCode();
+	//as discusses in week 7, it is better to use CartesianCoordinate most of the time
+	//I put hashCode same for both to keep objects interchangeable with hashmap
+	public abstract int hashCode(); 
 
 	public abstract boolean isEqual(Coordinate c);
 

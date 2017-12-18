@@ -14,9 +14,9 @@ public class LocationTest {
 	
 	@Before
 	public void init() {
-		c = new CartesianCoordinate (1.0, 2.0, 3.0);
-		c_equal = new CartesianCoordinate (1.0, 2.0, 3.0);
-		c_not_equal = new CartesianCoordinate (2.0, 2.0, 3.0);
+		c = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0, 3.0);
+		c_equal = CartesianCoordinate.getCartesianCoordinate(1.0, 2.0, 3.0);
+		c_not_equal = CartesianCoordinate.getCartesianCoordinate(2.0, 2.0, 3.0);
 		l = new Location (c);
 		l_equal = new Location (c_equal); 
 		l_not_equal = new Location (c_not_equal); 
