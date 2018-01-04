@@ -20,11 +20,7 @@ public class SphericCoordinateTest {
 		simple_spher = SphericCoordinate.getSphericCoordinate(8.77, 24.26, 56.31);
 		simple_spher_2 = SphericCoordinate.getSphericCoordinate(8.77, 24.26, 56.31);
 	}
-	@Test
-	public void asCartesianCoordinateTest() {
-		
-		Assert.assertFalse(too_simple_car.isEqual(simple_spher.asCartesianCoordinate()));
-	}
+	
 	@Test
 	public void getCartesianDistanceTest() throws IllegalArgumentException, InvalidCoordinateException {
 		Assert.assertEquals(simple_car.getCartesianDistance(simple_spher), 0, 0.01);
@@ -37,9 +33,5 @@ public class SphericCoordinateTest {
 		Assert.assertNotEquals(simple_spher,too_simple_car.asSphericCoordinate());
 	}
 	
-	@Test
-	public void isEqualTest() {
-		Assert.assertTrue(simple_spher.isEqual(simple_spher));
-		Assert.assertTrue(simple_spher.isEqual(simple_spher_2));
-	}
+	
 }

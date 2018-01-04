@@ -16,5 +16,5 @@ public interface Coordinate {
 	
 	double getDistance(Coordinate c) throws InvalidCoordinateException;
 	
-	boolean isEqual(Coordinate c);
+	//boolean isEqual(Coordinate c);
 }

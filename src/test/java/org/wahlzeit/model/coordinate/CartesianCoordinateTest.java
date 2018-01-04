@@ -42,14 +42,7 @@ public class CartesianCoordinateTest {
 	}
 	*/
 	
-	@Test
-	public void isEqualsTest() {
-		Assert.assertTrue(c1.isEqual(c_equal));
-		Assert.assertFalse(c1.isEqual(c_not_equal));
-		Assert.assertFalse(c1.isEqual(null));
-		Assert.assertFalse(c1.isEqual(c));
 
-	}
 	@Test
 	public void equalsTest() {
 		Assert.assertTrue(c1.equals(c_equal));
@@ -70,11 +63,7 @@ public class CartesianCoordinateTest {
 		Assert.assertEquals(expected, actual, 0); 
 		
 	}
-	@Test
-	public void asCartesianCoordinateTest() {
-
-		Assert.assertFalse(too_simple_car.isEqual(simple_spher.asCartesianCoordinate()));
-	}
+	
 	@Test
 	public void getCartesianDistanceTest() throws IllegalArgumentException, InvalidCoordinateException {
 		Assert.assertEquals(simple_spher.getCartesianDistance(simple_car), 0, 0.01);

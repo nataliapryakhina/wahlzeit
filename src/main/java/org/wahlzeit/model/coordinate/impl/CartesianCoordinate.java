@@ -91,11 +91,12 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 
 		return SphericCoordinate.getSphericCoordinate(radius, longitude, latitude);
 	}
-	public  int hashCode() {
-		return Objects.hash(this.x, this.y, this.z);
-		
-	}
-
+	
+	@Override
+    public String toString() {
+        return "(" +"x: "+ this.x + ", "+"y: " + this.y  + ", "+"z: " + this.z  + ")";
+    }
+/* this method is no longer needed, after value Objects are created
 	@Override
 	public final boolean isEqual(Coordinate c) {
 		assertClassInvariants();
@@ -115,7 +116,7 @@ public final class CartesianCoordinate extends AbstractCoordinate {
 		}
 
 	}
-
+*/
 
 
 	public final void assertClassInvariants() throws IllegalArgumentException {

@@ -38,7 +38,8 @@ public final class SphericCoordinate extends AbstractCoordinate {
 	public final static SphericCoordinate getSphericCoordinate(double radius, double longitude, double latitude) throws InvalidCoordinateException {
 		SphericCoordinate c_spher = new SphericCoordinate(radius, longitude, latitude);
 		Coordinate c_hash_maped = AbstractCoordinate.returnFromCoordinateValueObjectsMap(c_spher);
-		return c_hash_maped.asSphericCoordinate();
+		
+		return (SphericCoordinate)c_hash_maped;
 	}
 
 	public final double getRadius() {
@@ -78,10 +79,11 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		// Method
 		return this;
 	}
-	public int hashCode() {
-		return Objects.hash(this.radius, this.longitude, this.latitude);
-	}
-
+	@Override
+    public String toString() {
+        return "(" +"radius: "+ this.radius + ", "+"longtitude: " + this.longitude  + ", "+"latitude: " + this.latitude  + ")";
+    }
+/* no longer needed
 	@Override
 	public final boolean isEqual(Coordinate c) {
 
@@ -103,6 +105,7 @@ public final class SphericCoordinate extends AbstractCoordinate {
 		}
 
 	}
+*/
 
 	@Override
 	public final void assertClassInvariants() throws InvalidCoordinateException {

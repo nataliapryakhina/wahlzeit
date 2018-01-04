@@ -30,8 +30,8 @@ public abstract class AbstractCoordinate implements Coordinate {
 	protected final static HashMap<Integer, Coordinate> coordinateValueObjectsMap = new HashMap<>();
 	
 	public static boolean existsInCoordinateValueObjectsMap(Coordinate c) {
-		coordinateValueObjectsMap.containsKey(c.hashCode());
-		return false;
+		
+		return coordinateValueObjectsMap.containsKey(c.hashCode());
 		
 	}
 	public static void saveToCoordinateValueObjectsMap(Coordinate c) {
@@ -125,7 +125,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return distance;
 
 	}
-
+	@Override
+    public int hashCode() {
+        return toString().hashCode();
+    }
+/* this method is no loger needed for value objects
 	public boolean equals(Object o) {
 		if (o == null) {
 			return false;
@@ -139,11 +143,11 @@ public abstract class AbstractCoordinate implements Coordinate {
 		}
 
 	}
+*/
 	//as discusses in week 7, it is better to use CartesianCoordinate most of the time
-	//I put hashCode same for both to keep objects interchangeable with hashmap
-	public abstract int hashCode(); 
+	public abstract String toString(); 
 
-	public abstract boolean isEqual(Coordinate c);
+//	public abstract boolean isEqual(Coordinate c);
 
 	public abstract void assertClassInvariants() throws IllegalArgumentException, InvalidCoordinateException;
 
