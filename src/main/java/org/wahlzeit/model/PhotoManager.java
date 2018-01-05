@@ -23,10 +23,14 @@ package org.wahlzeit.model;
 import com.google.appengine.api.images.Image;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
+
+import org.wahlzeit.model.owl.OwlPhotoFactory;
+import org.wahlzeit.model.owl.OwlPhotoManager;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.ObjectManager;
 import org.wahlzeit.services.Persistent;
+import org.wahlzeit.utils.PatternInstance;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -40,6 +44,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+@PatternInstance(
+	patternName = "Singleton",
+	participants = { 
+		"PhotoManager.class", "OwlPhotoManager.class"
+	}
+)
 /**
  * A photo manager provides access to and manages photos.
  */
@@ -141,7 +151,8 @@ public class PhotoManager extends ObjectManager {
 	}
 
 	/**
-	 * @methodtype init Loads all Photos from the Datastore and holds them in the cache
+	 * @methodtype init Loads all Photos from the Datastore and holds them in the
+	 *             cache
 	 */
 	public void init() {
 		loadPhotos();
@@ -150,7 +161,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 *
-	 * Load all persisted photos. Executed when Wahlzeit is restarted.
+	 *             Load all persisted photos. Executed when Wahlzeit is restarted.
 	 */
 	public void loadPhotos() {
 		Collection<Photo> existingPhotos = ObjectifyService.run(new Work<Collection<Photo>>() {
@@ -164,13 +175,13 @@ public class PhotoManager extends ObjectManager {
 
 		for (Photo photo : existingPhotos) {
 			if (!doHasPhoto(photo.getId())) {
-				log.config(LogBuilder.createSystemMessage().
-						addParameter("Load Photo with ID", photo.getIdAsString()).toString());
+				log.config(LogBuilder.createSystemMessage().addParameter("Load Photo with ID", photo.getIdAsString())
+						.toString());
 				loadScaledImages(photo);
 				doAddPhoto(photo);
 			} else {
-				log.config(LogBuilder.createSystemMessage().
-						addParameter("Already loaded Photo", photo.getIdAsString()).toString());
+				log.config(LogBuilder.createSystemMessage().addParameter("Already loaded Photo", photo.getIdAsString())
+						.toString());
 			}
 		}
 
@@ -188,17 +199,16 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 *
-	 * Loads all scaled Images of this Photo from Google Cloud Storage
+	 *             Loads all scaled Images of this Photo from Google Cloud Storage
 	 */
 	protected void loadScaledImages(Photo photo) {
 		String photoIdAsString = photo.getId().asString();
 		ImageStorage imageStorage = ImageStorage.getInstance();
 
 		for (PhotoSize photoSize : PhotoSize.values()) {
-			log.config(LogBuilder.createSystemMessage().
-					addAction("loading image").
-					addParameter("image size", photoSize.asString()).
-					addParameter("photo ID", photoIdAsString).toString());
+			log.config(LogBuilder.createSystemMessage().addAction("loading image")
+					.addParameter("image size", photoSize.asString()).addParameter("photo ID", photoIdAsString)
+					.toString());
 			if (imageStorage.doesImageExist(photoIdAsString, photoSize.asInt())) {
 				try {
 					Serializable rawImage = imageStorage.readImage(photoIdAsString, photoSize.asInt());
@@ -206,14 +216,13 @@ public class PhotoManager extends ObjectManager {
 						photo.setImage(photoSize, (Image) rawImage);
 					}
 				} catch (IOException e) {
-					log.warning(LogBuilder.createSystemMessage().
-							addParameter("size", photoSize.asString()).
-							addParameter("photo ID", photoIdAsString).
-							addException("Could not load image although it exists", e).toString());
+					log.warning(LogBuilder.createSystemMessage().addParameter("size", photoSize.asString())
+							.addParameter("photo ID", photoIdAsString)
+							.addException("Could not load image although it exists", e).toString());
 				}
 			} else {
-				log.config(LogBuilder.createSystemMessage().
-						addParameter("Size does not exist", photoSize.asString()).toString());
+				log.config(LogBuilder.createSystemMessage().addParameter("Size does not exist", photoSize.asString())
+						.toString());
 			}
 		}
 	}
@@ -248,8 +257,9 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * @methodtype command
 	 *
-	 * Persists all available sizes of the Photo. If one size exceeds the limit of the persistence layer, e.g. > 1MB for
-	 * the Datastore, it is simply not persisted.
+	 *             Persists all available sizes of the Photo. If one size exceeds
+	 *             the limit of the persistence layer, e.g. > 1MB for the Datastore,
+	 *             it is simply not persisted.
 	 */
 	protected void saveScaledImages(Photo photo) {
 		String photoIdAsString = photo.getId().asString();
@@ -257,7 +267,7 @@ public class PhotoManager extends ObjectManager {
 		PhotoSize photoSize;
 		int it = 0;
 		boolean moreSizesExist = true;
-		do{
+		do {
 			photoSize = PhotoSize.values()[it];
 			it++;
 			Image image = photo.getImage(photoSize);
@@ -267,21 +277,21 @@ public class PhotoManager extends ObjectManager {
 						imageStorage.writeImage(image, photoIdAsString, photoSize.asInt());
 					}
 				} catch (Exception e) {
-					log.warning(LogBuilder.createSystemMessage().
-							addException("Problem when storing image", e).toString());
+					log.warning(
+							LogBuilder.createSystemMessage().addException("Problem when storing image", e).toString());
 					moreSizesExist = false;
 				}
 			} else {
-				log.config(LogBuilder.createSystemMessage().
-						addParameter("No image for size", photoSize.asString()).toString());
+				log.config(LogBuilder.createSystemMessage().addParameter("No image for size", photoSize.asString())
+						.toString());
 				moreSizesExist = false;
 			}
 		} while (it < PhotoSize.values().length && moreSizesExist);
 	}
 
 	/**
-	 * Removes all tags of the Photo (obj) in the datastore that have been removed by the user and adds all new tags of
-	 * the photo to the datastore.
+	 * Removes all tags of the Photo (obj) in the datastore that have been removed
+	 * by the user and adds all new tags of the photo to the datastore.
 	 */
 	protected void updateTags(Photo photo) {
 		// delete all existing tags, for the case that some have been removed
@@ -290,7 +300,7 @@ public class PhotoManager extends ObjectManager {
 		// add all current tags to the datastore
 		Set<String> tags = new HashSet<String>();
 		photoTagCollector.collect(tags, photo);
-		for (Iterator<String> i = tags.iterator(); i.hasNext(); ) {
+		for (Iterator<String> i = tags.iterator(); i.hasNext();) {
 			Tag tag = new Tag(i.next(), photo.getId().asString());
 			log.config(LogBuilder.createSystemMessage().addParameter("Writing Tag", tag.asString()).toString());
 			writeObject(tag);
@@ -300,7 +310,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 *
 	 */
-	public void savePhotos() throws IOException{
+	public void savePhotos() throws IOException {
 		updateObjects(photoCache.values());
 	}
 
@@ -318,7 +328,7 @@ public class PhotoManager extends ObjectManager {
 		Set<Photo> result = new HashSet<Photo>();
 		readObjects(result, Photo.class, Photo.OWNER_ID, ownerName);
 
-		for (Iterator<Photo> i = result.iterator(); i.hasNext(); ) {
+		for (Iterator<Photo> i = result.iterator(); i.hasNext();) {
 			doAddPhoto(i.next());
 		}
 
