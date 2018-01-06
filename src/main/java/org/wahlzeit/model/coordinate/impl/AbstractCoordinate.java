@@ -4,7 +4,12 @@ import java.util.HashMap;
 import org.wahlzeit.model.coordinate.Coordinate;
 import org.wahlzeit.utils.PatternInstance;
 
-
+@PatternInstance(
+		patternName = "Template Method",
+		participants = { 
+			"AbstractCoordinate.class", "CartesianCoordinate.class", "SphericCoordinate"
+		}
+)
 public abstract class AbstractCoordinate implements Coordinate {
 	
 	//Turn the Coordinate classes into value object classes cw-10
