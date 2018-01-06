@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 		"PhotoFactory.class", "OwlPhotoFactory.class"
 	}
 )
+
 public class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
@@ -52,6 +53,12 @@ public class PhotoFactory {
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
+	@PatternInstance(
+			patternName = "Singleton",
+			participants = {
+				"PhotoFactory.class"
+			}
+		)
 	public static void initialize() {
 		getInstance(); // drops result due to getInstance() side-effects
 	}
