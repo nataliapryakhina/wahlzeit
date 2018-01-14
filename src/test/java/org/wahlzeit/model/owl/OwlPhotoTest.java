@@ -8,8 +8,8 @@ public class OwlPhotoTest extends OwlDomainTest{
 	private OwlPhoto owl_null;
 	@Before
 	public void start() throws Exception {
-		
-		owl = new OwlPhoto(PhotoId.getNextId(), "Grey owl", Size.SMALL, 0100 ); 
+		//Owl with no Owl-class instance
+		owl = new OwlPhoto(PhotoId.getNextId(), "Grey owl", Size.SMALL, 0100); 
 
 	}
 	

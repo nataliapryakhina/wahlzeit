@@ -7,12 +7,12 @@ import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
 public class OwlPhoto extends Photo {
-	
+	private Owl owl = new Owl(); 
 	
 	public enum Size{
 		SMALL, MIDDLE, BIG
 	}
-	
+
 	private String species;
 	private Size size; 
 	private int color;
@@ -44,8 +44,18 @@ public class OwlPhoto extends Photo {
 		this.species = species;
 		this.size= size;
 		this.color=color; 
+		//this.owl = owl;
 		
 	}
+	/*
+	public void setOwl(Owl owl) {
+		this.owl = owl;
+	}
+	public Owl getOwl() {
+		return this.owl;
+	}
+	*/
+	
 	public void setSpecies(String species) throws IllegalArgumentException{
 		try {
 			OwlAssertions.assertParameterNotNull(species); 
