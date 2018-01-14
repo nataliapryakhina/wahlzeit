@@ -23,12 +23,7 @@ package org.wahlzeit.model;
 import org.wahlzeit.utils.EnumValue;
 import org.wahlzeit.utils.PatternInstance;
 
-@PatternInstance(
-		patternName = "State",
-		participants = { 
-			"PhotoStatus"
-		}
-	)
+
 /**
  * The PhotoStatus of a Photo captures its state in the system.
  * A photo may be visible or invisible, it may have been flagged, and it may have been deleted.

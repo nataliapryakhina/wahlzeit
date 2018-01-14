@@ -47,7 +47,7 @@ import java.util.logging.Logger;
 @PatternInstance(
 	patternName = "Singleton",
 	participants = { 
-		"PhotoManager.class", "OwlPhotoManager.class"
+			"Singleton"
 	}
 )
 /**

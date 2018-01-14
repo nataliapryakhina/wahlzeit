@@ -31,7 +31,7 @@ import org.wahlzeit.utils.PatternInstance;
 @PatternInstance(
 		patternName = "State",
 		participants = { 
-			"UserStatus"
+			"State"
 		}
 	)
 public enum UserStatus implements EnumValue {

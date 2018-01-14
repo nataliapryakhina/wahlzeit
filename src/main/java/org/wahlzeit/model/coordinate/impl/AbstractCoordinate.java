@@ -7,7 +7,7 @@ import org.wahlzeit.utils.PatternInstance;
 @PatternInstance(
 		patternName = "Template Method",
 		participants = { 
-			"AbstractCoordinate.class", "CartesianCoordinate.class", "SphericCoordinate"
+			"Template Method"
 		}
 )
 public abstract class AbstractCoordinate implements Coordinate {

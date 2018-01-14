@@ -44,7 +44,7 @@ import java.util.Map;
 @PatternInstance(
 	patternName = "Abstract Factory",
 	participants = {
-		"Photo.class", "OwlPhoto.class"
+		"Abstract Factory"
 	}
 )
 @Entity

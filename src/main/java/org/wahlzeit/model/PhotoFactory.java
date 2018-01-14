@@ -29,12 +29,7 @@ import java.util.logging.Logger;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
-@PatternInstance(
-	patternName = "Abstract Factory",
-	participants = {
-		"PhotoFactory.class", "OwlPhotoFactory.class"
-	}
-)
+
 
 public class PhotoFactory {
 
