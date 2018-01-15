@@ -5,9 +5,11 @@ public class Owl {
 	//UML
 	public OwlType type = null;
 	public OwlManager manager = OwlManager.getInstance();
+	
 	public enum Color {
 		WHITE, BLACK, BRAUN, MULTICOLORED 
 	}
+	
 	
 	
 	private int owlId;
@@ -29,6 +31,7 @@ public class Owl {
 	public void setColor(Color c) {
 		this.color = c;
 	}
+	
 	public void setAge(int age){
 		this.age = age;
 	}
@@ -43,9 +46,11 @@ public class Owl {
 	public int getId() {
 		return this.owlId;
 	}
+	
 	public Color getColor() {
 		return this.color;
 	}
+	
 	public int getAge(){
 		return this.age;
 	}
