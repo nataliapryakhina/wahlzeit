@@ -3,11 +3,13 @@ package org.wahlzeit.model.owl;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 
+import com.googlecode.objectify.annotation.Ignore;
 import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
 public class OwlPhoto extends Photo {
-	//private Owl owl = null; 
+	@Ignore
+	private Owl owl; //= null; 
 	
 	public enum Size{
 		SMALL, MIDDLE, BIG
@@ -47,14 +49,14 @@ public class OwlPhoto extends Photo {
 		//this.owl = owl;
 		
 	}
-	/*
+	
 	public void setOwl(Owl owl) {
 		this.owl = owl;
 	}
 	public Owl getOwl() {
 		return this.owl;
 	}
-	*/
+	
 	
 	public void setSpecies(String species) throws IllegalArgumentException{
 		try {

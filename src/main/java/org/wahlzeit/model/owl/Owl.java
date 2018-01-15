@@ -4,7 +4,7 @@ public class Owl {
 
 	//UML
 	public OwlType type = null;
-	public OwlManager manager = OwlManager.getInstance();
+	public OwlManager manager;
 	
 	public enum Color {
 		WHITE, BLACK, BRAUN, MULTICOLORED 
@@ -25,6 +25,7 @@ public class Owl {
 	public Owl(OwlType ot) {
 		type = ot; 
 		this.owlId = this.hashCode();
+		manager = OwlManager.getInstance();
 	}
 	
 	
