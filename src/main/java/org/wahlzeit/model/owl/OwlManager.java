@@ -17,7 +17,7 @@ public class OwlManager {
 	public static OwlManager getInstance() {
 		return instance;
 	}
-	/*
+	
 	public Owl createOwl(String typeName) {
 		//assertIsValidFlowerTypeName(typeName);
 		OwlType ot = getOwlType(typeName);
@@ -36,7 +36,7 @@ public class OwlManager {
 			return newType;
 		}
 	}
-	*/
+	
 	
 
 }

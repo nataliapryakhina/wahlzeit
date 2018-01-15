@@ -7,7 +7,7 @@ import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
 public class OwlPhoto extends Photo {
-	private Owl owl = new Owl(); 
+	//private Owl owl = null; 
 	
 	public enum Size{
 		SMALL, MIDDLE, BIG

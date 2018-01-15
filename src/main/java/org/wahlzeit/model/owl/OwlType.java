@@ -8,16 +8,17 @@ import java.util.Set;
 
 public class OwlType {
 	
-	private String typeName;
-	//public OwlManager manager = OwlManager.getInstance();
+	public String typeName;
+	public OwlManager manager = OwlManager.getInstance();
+	
 	public OwlType(String tn) {
 		this.typeName = tn;
 	}
-	//public OwlType superType = null;
+	public OwlType superType = null;
 	
 	protected Set<OwlType> subTypes = new HashSet<OwlType>();
 	
-	/*
+	
 	
 	public OwlType getSuperType() {
 		return superType;
@@ -54,6 +55,6 @@ public class OwlType {
 		}
 		
 	}
-	*/
+	
 	
 }

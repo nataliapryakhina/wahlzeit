@@ -9,8 +9,10 @@ import org.junit.runners.Suite;
 	
 	OwlPhotoTest.class,
 	OwlPhotoFactoryTest.class,
-	OwlPhotoManagerTest.class
-	  
+	OwlPhotoManagerTest.class,
+	OwlTest.class,
+	OwlTypeTest.class,
+	OwlManagerTest.class
 })
 public class OwlModelTestSuite {
 
