@@ -3,12 +3,13 @@ package org.wahlzeit.model.owl;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoId;
 
-import com.googlecode.objectify.annotation.Ignore;
+
+import com.googlecode.objectify.annotation.Serialize;
 import com.googlecode.objectify.annotation.Subclass;
 
 @Subclass
 public class OwlPhoto extends Photo {
-	@Ignore
+	@Serialize
 	private Owl owl; //= null; 
 	
 	public enum Size{
