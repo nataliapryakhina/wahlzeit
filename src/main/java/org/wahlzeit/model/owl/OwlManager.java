@@ -2,8 +2,10 @@ package org.wahlzeit.model.owl;
 
 import java.util.HashMap;
 
+import org.wahlzeit.services.ObjectManager;
 
-public class OwlManager {
+
+public class OwlManager extends ObjectManager {
 	
 	private HashMap<Integer, Owl> owls;
 	private HashMap<String, OwlType> owlTypes;
