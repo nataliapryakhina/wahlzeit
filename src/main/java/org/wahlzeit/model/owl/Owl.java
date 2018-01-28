@@ -16,6 +16,14 @@ package org.wahlzeit.model.owl;
  * 5. Initialization – in second step
  * 6. Building – default 
  */
+
+/*
+ * -------------CW14: Collaboration-------------------------
+ *  Owl with OwlType
+ *  Owl with OwlPhoto 
+ *  Owl with OwlManager
+ *  
+ */
 public class Owl {
 
 	//UML
@@ -37,10 +45,11 @@ public class Owl {
 	private String favoriteFood;
 	
 	
-	
+	//OWL -OwlType Collaboration 
 	public Owl(OwlType ot) {
 		type = ot; 
 		this.owlId = this.hashCode();
+		//OWL -OwlManager Collaboration
 		manager = OwlManager.getInstance();
 	}
 	

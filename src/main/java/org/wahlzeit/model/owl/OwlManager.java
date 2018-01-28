@@ -19,7 +19,7 @@ public class OwlManager extends ObjectManager {
 	public static OwlManager getInstance() {
 		return instance;
 	}
-	
+	//OwlManager -Owl Collaboration
 	public Owl createOwl(String typeName) {
 		//assertIsValidFlowerTypeName(typeName);
 		OwlType ot = getOwlType(typeName);
@@ -28,7 +28,7 @@ public class OwlManager extends ObjectManager {
 		return result;
 	}
 	
-	
+	//OwlManager -OwlType Collaboration
 	public OwlType getOwlType(String typename) {
 		if (owlTypes.containsKey(typename)) {
 			return owlTypes.get(typename);

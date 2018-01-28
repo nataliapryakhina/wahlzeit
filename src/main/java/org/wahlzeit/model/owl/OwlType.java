@@ -9,6 +9,7 @@ import java.util.Set;
 public class OwlType {
 	
 	public String typeName;
+	//OwlManager -OwlType Collaboration
 	public OwlManager manager = OwlManager.getInstance();
 	
 	public OwlType(String tn) {

@@ -51,6 +51,7 @@ public class OwlPhoto extends Photo {
 		super(myId);
 		OwlAssertions.assertParameterNotNull(myId); 
 	}
+	//OWL -OwlPhoto Collaboration
 	public OwlPhoto(PhotoId myId, Owl owl) {
 		super(myId);
 		OwlAssertions.assertParameterNotNull(myId); 
