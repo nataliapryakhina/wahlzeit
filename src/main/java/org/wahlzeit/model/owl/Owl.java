@@ -1,5 +1,21 @@
 package org.wahlzeit.model.owl;
 
+/*
+ * --------------CW13: instantiation process--------------
+ * OwlManager.class: createOwl(String typename)->
+ * -> OwlManager.getOwlType(String typename)-> 
+ * -> OwlType new OwlType(typename)->
+ * -> OwlType.createInstance()->
+ * -> Owl new Owl
+ * 
+ * 
+ * 1. Delegation - separate-object  
+ * 2. Selection - on-the-spot
+ * 3. Configuration – in code
+ * 4. Instantiation – in code
+ * 5. Initialization – in second step
+ * 6. Building – default 
+ */
 public class Owl {
 
 	//UML

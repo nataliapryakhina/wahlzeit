@@ -7,11 +7,27 @@ import org.wahlzeit.model.PhotoId;
 import com.googlecode.objectify.annotation.Serialize;
 import com.googlecode.objectify.annotation.Subclass;
 
+/*
+ * --------------CW13: instantiation process--------------
+ * OwlPhotoManager.class: new OwlPhotoManager ->
+ * -> OwlPhotoFactory.class: getInstance() ->
+ * -> OwlPhotoFactory.class: createPhoto(PhotoId id) or createPhoto()->
+ * -> OwlPhotoFactory.class: new OwlPhoto(id) or new OwlPhoto()
+ * 
+ * 
+ * 1. Delegation - separate-object  
+ * 2. Selection - by subclassing 
+ * 3. Configuration – in code
+ * 4. Instantiation – in code
+ * 5. Initialization – default
+ * 6. Building – default 
+ */
+
 @Subclass
 public class OwlPhoto extends Photo {
 	@Serialize
 	private Owl owl; //= null; 
-	
+	/* not needed any more since Owl.class
 	public enum Size{
 		SMALL, MIDDLE, BIG
 	}
@@ -19,7 +35,7 @@ public class OwlPhoto extends Photo {
 	private String species;
 	private Size size; 
 	private int color;
-	
+	*/
 
 	/**
 	 * 
@@ -35,6 +51,12 @@ public class OwlPhoto extends Photo {
 		super(myId);
 		OwlAssertions.assertParameterNotNull(myId); 
 	}
+	public OwlPhoto(PhotoId myId, Owl owl) {
+		super(myId);
+		OwlAssertions.assertParameterNotNull(myId); 
+		this.owl = owl; 
+	}
+	/*
 	public OwlPhoto (PhotoId myId, String species, Size size, int color) throws IllegalArgumentException{
 		try {
 			OwlAssertions.assertParameterNotNull(myId); 
@@ -50,6 +72,7 @@ public class OwlPhoto extends Photo {
 		//this.owl = owl;
 		
 	}
+	*/
 	
 	public void setOwl(Owl owl) {
 		this.owl = owl;
@@ -57,7 +80,7 @@ public class OwlPhoto extends Photo {
 	public Owl getOwl() {
 		return this.owl;
 	}
-	
+	/*
 	
 	public void setSpecies(String species) throws IllegalArgumentException{
 		try {
@@ -88,6 +111,7 @@ public class OwlPhoto extends Photo {
 	public int getColor() {
 		return color;
 	}
+	*/
 
 
 }
